@@ -5,6 +5,7 @@ import hashimCSV from "./persons/hashim.csv?raw";
 import majidCSV from "./persons/majid.csv?raw"
 import ArifCSV from "./persons/arif.csv?raw"
 import HishamCSV from "./persons/hisham.csv?raw"
+import SiyasCSV from "./persons/siyas.csv?raw"
 
 import { parsePersonCSV } from "../utils/csvParser";
 import type { PersonSchedule } from "../types";
@@ -14,7 +15,8 @@ const rawFiles: { name: string; csv: string }[] = [
   { name: "Hashim", csv: hashimCSV },
   {name: "Majid", csv: majidCSV},
   {name: "Arif", csv :ArifCSV },
-  {name: "Hisham", csv: HishamCSV }
+  {name: "Hisham", csv: HishamCSV },
+  {name: "Siyas", csv: SiyasCSV }
   // { name: "NewPerson", csv: newPersonCSV },  ← add here
 ];
 
