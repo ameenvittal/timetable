@@ -13,7 +13,9 @@ export default function Header() {
     <header className="sticky top-0 z-30 border-b border-slate-300/70 bg-linear-to-r from-slate-900 via-slate-800 to-indigo-900 text-white shadow-sm">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
         <div>
-          <h1 className="text-xl font-bold tracking-tight">Faculty Timetable</h1>
+          <h1 className="text-xl font-bold tracking-tight">
+            Faculty Timetable
+          </h1>
           <p className="mt-0.5 text-xs font-medium uppercase tracking-[0.16em] text-slate-200">
             {today}
           </p>

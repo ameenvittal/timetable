@@ -1,4 +1,5 @@
 import type { PersonSchedule } from "../types";
+import { BookOpen, CircleCheckBig, CircleX, MapPin } from "lucide-react";
 import {
   getNextPeriod,
   getTodayName,
@@ -16,11 +17,11 @@ export default function NextPeriod({ persons }: Props) {
 
   if (!period) {
     return (
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 className="mb-1 text-sm font-semibold uppercase tracking-wide text-slate-500">
           Next Period
         </h2>
-        <p className="text-gray-400 text-sm">No more periods today.</p>
+        <p className="text-sm text-slate-500">No more periods today.</p>
       </div>
     );
   }
@@ -31,50 +32,83 @@ export default function NextPeriod({ persons }: Props) {
   const times = PERIOD_TIMES[period];
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-          Next Period
-        </h2>
-        <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full font-medium">
-          P{period} · {times.start}–{times.end}
-        </span>
+    <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+      <div className="border-b border-slate-100 px-5 py-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-500">
+            Next Period
+          </h2>
+          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+            P{period} | {times.start}-{times.end}
+          </span>
+        </div>
       </div>
 
-      <div className="space-y-2">
-        {free.length > 0 && (
-          <div>
-            <p className="text-xs text-gray-400 font-semibold mb-1">🟢 Free</p>
-            <div className="flex flex-wrap gap-2">
-              {free.map((s) => (
-                <span
-                  key={s.personName}
-                  className="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-sm font-medium"
-                >
-                  {s.personName}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-        {busy.length > 0 && (
-          <div>
-            <p className="text-xs text-gray-400 font-semibold mb-1">
-              🔴 In Class
+      <div className="grid gap-4 p-5 md:grid-cols-2">
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-700">
+              <CircleCheckBig className="h-4 w-4" />
+              Free Next
             </p>
-            <div className="flex flex-wrap gap-2">
-              {busy.map((s) => (
+            <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-bold text-emerald-700">
+              {free.length}
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {free.length ? (
+              free.map((s) => (
                 <span
                   key={s.personName}
-                  className="bg-rose-50 text-rose-600 px-3 py-1 rounded-full text-sm"
+                  className="rounded-full border border-emerald-200 bg-white px-3 py-1 text-sm font-semibold text-emerald-700"
                 >
                   {s.personName}
                 </span>
-              ))}
-            </div>
+              ))
+            ) : (
+              <p className="text-sm text-emerald-700/80">No one is free.</p>
+            )}
           </div>
-        )}
+        </div>
+
+        <div className="rounded-2xl border border-rose-200 bg-rose-50/60 p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-rose-700">
+              <CircleX className="h-4 w-4" />
+              In Class Next
+            </p>
+            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-bold text-rose-700">
+              {busy.length}
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            {busy.length ? (
+              busy.map((s) => (
+                <div
+                  key={s.personName}
+                  className="rounded-xl border border-rose-100 bg-white p-2.5"
+                >
+                  <p className="text-sm font-semibold text-slate-800">
+                    {s.personName}
+                  </p>
+                  <p className="mt-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
+                    <BookOpen className="h-3.5 w-3.5" />
+                    {s.period?.subject || "Class"}
+                  </p>
+                  <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
+                    <MapPin className="h-3.5 w-3.5" />
+                    LT/Room: {s.period?.room || "N/A"}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-rose-700/80">No classes scheduled.</p>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

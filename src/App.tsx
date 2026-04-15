@@ -18,9 +18,16 @@ import PersonTimetable from "./components/PersonTimetable";
 
 type Tab = "now" | "today" | "tomorrow" | "rooms" | "person";
 
+function getInitialTab(): Tab {
+  if (typeof window !== "undefined" && window.innerWidth <= 768) {
+    return "person";
+  }
+  return "now";
+}
+
 export default function App() {
   const [persons, setPersons] = useState<PersonSchedule[]>([]);
-  const [tab, setTab] = useState<Tab>("now");
+  const [tab, setTab] = useState<Tab>(getInitialTab);
 
   useEffect(() => {
     loadAllPersons().then(setPersons);
