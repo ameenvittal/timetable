@@ -4,14 +4,14 @@ import type { PersonSchedule, PeriodStatus, DayName } from "../types";
 export const PERIOD_TIMES: {
   [period: number]: { start: string; end: string };
 } = {
-  1: { start: "08:00", end: "08:45" },
-  2: { start: "08:45", end: "09:30" },
-  3: { start: "09:30", end: "10:15" },
-  4: { start: "10:30", end: "11:15" },
-  5: { start: "11:15", end: "12:00" },
-  6: { start: "13:30", end: "14:15" },
-  7: { start: "14:15", end: "15:00" },
-  8: { start: "15:00", end: "15:45" },
+  1: { start: "07:35", end: "08:25" },
+  2: { start: "08:50", end: "09:40" },
+  3: { start: "09:45", end: "10:35" },
+  4: { start: "10:40", end: "11:30" },
+  5: { start: "11:35", end: "12:25" },
+  6: { start: "12:30", end: "13:15" },
+  7: { start: "14:15", end: "15:05" },
+  8: { start: "15:15", end: "16:05" },
 };
 
 export const TOTAL_PERIODS = 8;

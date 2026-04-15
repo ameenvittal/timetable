@@ -170,63 +170,63 @@ export default function PersonTimetable({ persons }: Props) {
         {!selectedPerson ? (
           <p className="text-sm text-gray-500">No person selected.</p>
         ) : viewMode === "week" ? (
-          <div className="space-y-4">
-            {WEEK_DAYS.map((weekday) => (
-              <div
-                key={weekday}
-                className="rounded-xl border border-white/5 bg-white/5 p-3"
-              >
-                <p className="mb-2 text-sm font-semibold text-gray-300">
-                  {weekday}
-                </p>
-                <div className="space-y-2">
-                  {Array.from({ length: TOTAL_PERIODS }, (_, i) => i + 1).map(
-                    (period) => {
-                      const times = PERIOD_TIMES[period];
-                      const detail = selectedPerson.schedule[weekday]?.[period];
-                      const isFree = !detail?.subject;
-
-                      return (
-                        <div
-                          key={`${weekday}-${period}`}
-                          className="flex items-start justify-between rounded-lg border border-white/5 bg-black/20 px-3 py-2"
-                        >
-                          <div>
-                            <p className="text-xs font-semibold text-gray-500">
-                              P{period} - {times.start}-{times.end}
-                            </p>
+          <div className="overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <table className="w-full text-left text-sm border-collapse min-w-[700px]">
+              <thead>
+                <tr>
+                  <th className="sticky left-0 z-10 bg-[#0B1121] border-b border-white/10 px-2 py-3 text-gray-500 font-semibold w-24 text-center">
+                    Period
+                  </th>
+                  {WEEK_DAYS.map((day) => (
+                    <th key={day} className="border-b border-white/10 px-2 py-3 text-gray-300 font-semibold min-w-[130px] text-center">
+                      {day.slice(0, 3)}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({ length: TOTAL_PERIODS }, (_, i) => i + 1).map((period) => {
+                  const times = PERIOD_TIMES[period];
+                  return (
+                    <tr key={period} className="border-b border-white/5 hover:bg-white/5 transition-colors group">
+                      <td className="sticky left-0 z-10 bg-[#0B1121] group-hover:bg-[#0c1325] transition-colors border-r border-white/5 px-2 py-3 text-center">
+                        <div className="font-bold text-gray-300">P{period}</div>
+                        <div className="text-[10px] text-gray-500 font-medium tracking-wide mt-0.5">{times.start} - {times.end}</div>
+                      </td>
+                      {WEEK_DAYS.map((day) => {
+                        const detail = selectedPerson.schedule[day]?.[period];
+                        const isFree = !detail?.subject;
+                        
+                        return (
+                          <td key={day} className="px-2 py-2 align-top">
                             {isFree ? (
-                              <p className="text-sm text-emerald-400 font-medium mt-1">
-                                Free
-                              </p>
+                              <div className="h-full w-full flex items-center justify-center p-2 opacity-30">
+                                <span className="text-emerald-500 font-bold text-xs">-</span>
+                              </div>
                             ) : (
-                              <div className="mt-1">
-                                <p className="text-sm text-gray-200 font-medium">
+                              <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 h-full shadow-sm hover:border-cyan-500/30 transition-colors">
+                                <p className="text-xs font-semibold text-gray-200 line-clamp-2 leading-snug">
                                   {detail.subject}
                                 </p>
-                                <p className="text-xs text-gray-400">
-                                  {detail.teacher || "No teacher"}
-                                </p>
+                                <div className="mt-2 flex items-center justify-between">
+                                  {detail.room ? (
+                                    <span className="text-[9px] uppercase tracking-wide bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-1.5 py-0.5 rounded font-bold">
+                                      {detail.room}
+                                    </span>
+                                  ) : (
+                                    <span />
+                                  )}
+                                </div>
                               </div>
                             )}
-                          </div>
-
-                          <div className="ml-3">
-                            {detail?.room ? (
-                              <span className="text-[10px] uppercase tracking-wide bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">
-                                {detail.room}
-                              </span>
-                            ) : (
-                              <span className="text-xs text-gray-600">-</span>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    },
-                  )}
-                </div>
-              </div>
-            ))}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         ) : (
           <div>

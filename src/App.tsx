@@ -63,12 +63,12 @@ export default function App() {
 
       {/* Tab Bar */}
       <div className="sticky top-18 z-20 border-b border-white/5 bg-[#030712]/60 px-4 py-3 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-5xl gap-2 rounded-2xl bg-white/5 border border-white/10 p-1.5 backdrop-blur-md">
+        <div className="mx-auto flex max-w-5xl gap-2 rounded-2xl bg-white/5 border border-white/10 p-1.5 backdrop-blur-md overflow-x-auto no-scrollbar">
           {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-300 ${
+              className={`flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-300 min-w-max ${
                 tab === t.id
                   ? "bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-white/10"
                   : "text-gray-400 hover:text-white hover:bg-white/5"
