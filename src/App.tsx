@@ -53,25 +53,25 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-slate-100 text-slate-900">
+    <div className="relative min-h-screen overflow-x-clip bg-[#030712] text-gray-100">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-28 -left-24 h-72 w-72 rounded-full bg-cyan-300/25 blur-3xl" />
-        <div className="absolute top-24 right-0 h-80 w-80 rounded-full bg-indigo-300/25 blur-3xl" />
+        <div className="absolute -top-28 -left-24 h-72 w-72 rounded-full bg-cyan-500/20 blur-[100px]" />
+        <div className="absolute top-24 right-0 h-80 w-80 rounded-full bg-indigo-500/20 blur-[100px]" />
       </div>
 
       <Header />
 
       {/* Tab Bar */}
-      <div className="sticky top-18 z-20 border-b border-slate-200/70 bg-white/80 px-4 py-3 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl gap-2 rounded-2xl bg-slate-100 p-1.5">
+      <div className="sticky top-18 z-20 border-b border-white/5 bg-[#030712]/60 px-4 py-3 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-5xl gap-2 rounded-2xl bg-white/5 border border-white/10 p-1.5 backdrop-blur-md">
           {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold transition-all ${
+              className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-300 ${
                 tab === t.id
-                  ? "bg-slate-900 text-white shadow-sm"
-                  : "text-slate-600 hover:bg-white"
+                  ? "bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-white/10"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
             >
               {tabIcons[t.id]}
@@ -84,7 +84,7 @@ export default function App() {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-5xl space-y-4 px-4 py-5 sm:py-6">
         {persons.length === 0 && (
-          <p className="mt-16 text-center text-sm text-slate-500">
+          <p className="mt-16 text-center text-sm text-gray-400">
             Loading schedules...
           </p>
         )}

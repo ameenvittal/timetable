@@ -73,13 +73,13 @@ export default function PersonTimetable({ persons }: Props) {
   const dayName = dayMode === "today" ? getTodayName() : getTomorrowName();
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 space-y-4">
+    <div className="rounded-3xl shadow-2xl border border-white/10 bg-[#0B1121]/80 backdrop-blur-md p-4 space-y-4">
       <div>
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
+        <h2 className="text-sm font-semibold text-cyan-400 uppercase tracking-wide mb-2">
           Personal Timetable
         </h2>
 
-        <label htmlFor="person-search" className="text-xs text-gray-500">
+        <label htmlFor="person-search" className="text-xs text-gray-400">
           Search Person
         </label>
         <input
@@ -88,12 +88,12 @@ export default function PersonTimetable({ persons }: Props) {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Type a name..."
-          className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all"
         />
 
         <label
           htmlFor="person-select"
-          className="mt-3 block text-xs text-gray-500"
+          className="mt-3 block text-xs text-gray-400"
         >
           Select Person
         </label>
@@ -101,16 +101,16 @@ export default function PersonTimetable({ persons }: Props) {
           id="person-select"
           value={selectedName}
           onChange={(e) => setSelectedName(e.target.value)}
-          className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all"
         >
           {filteredPersons.map((person) => (
-            <option key={person.name} value={person.name}>
+            <option key={person.name} value={person.name} className="bg-[#0B1121]">
               {person.name}
             </option>
           ))}
         </select>
         {filteredPersons.length === 0 && (
-          <p className="mt-2 text-xs text-rose-500">
+          <p className="mt-2 text-xs text-rose-400">
             No person matches your search.
           </p>
         )}
@@ -120,20 +120,20 @@ export default function PersonTimetable({ persons }: Props) {
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode("single-day")}
-            className={`flex-1 text-sm font-medium py-2 rounded-lg transition-colors ${
+            className={`flex-1 text-sm font-medium py-2 rounded-lg transition-all duration-300 ${
               viewMode === "single-day"
-                ? "bg-indigo-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]"
+                : "bg-white/5 text-gray-400 hover:bg-white/10"
             }`}
           >
             Day View
           </button>
           <button
             onClick={() => setViewMode("week")}
-            className={`flex-1 text-sm font-medium py-2 rounded-lg transition-colors ${
+            className={`flex-1 text-sm font-medium py-2 rounded-lg transition-all duration-300 ${
               viewMode === "week"
-                ? "bg-indigo-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]"
+                : "bg-white/5 text-gray-400 hover:bg-white/10"
             }`}
           >
             Week View
@@ -144,20 +144,20 @@ export default function PersonTimetable({ persons }: Props) {
           <div className="flex gap-2">
             <button
               onClick={() => setDayMode("today")}
-              className={`flex-1 text-sm font-medium py-2 rounded-lg transition-colors ${
+              className={`flex-1 text-sm font-medium py-2 rounded-lg transition-all duration-300 ${
                 dayMode === "today"
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-white/15 text-white border border-white/20"
+                  : "bg-white/5 text-gray-400 hover:bg-white/10"
               }`}
             >
               Today
             </button>
             <button
               onClick={() => setDayMode("tomorrow")}
-              className={`flex-1 text-sm font-medium py-2 rounded-lg transition-colors ${
+              className={`flex-1 text-sm font-medium py-2 rounded-lg transition-all duration-300 ${
                 dayMode === "tomorrow"
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  ? "bg-white/15 text-white border border-white/20"
+                  : "bg-white/5 text-gray-400 hover:bg-white/10"
               }`}
             >
               Tomorrow
@@ -168,15 +168,15 @@ export default function PersonTimetable({ persons }: Props) {
 
       <div>
         {!selectedPerson ? (
-          <p className="text-sm text-gray-400">No person selected.</p>
+          <p className="text-sm text-gray-500">No person selected.</p>
         ) : viewMode === "week" ? (
           <div className="space-y-4">
             {WEEK_DAYS.map((weekday) => (
               <div
                 key={weekday}
-                className="rounded-xl border border-gray-100 bg-gray-50 p-3"
+                className="rounded-xl border border-white/5 bg-white/5 p-3"
               >
-                <p className="mb-2 text-sm font-semibold text-gray-700">
+                <p className="mb-2 text-sm font-semibold text-gray-300">
                   {weekday}
                 </p>
                 <div className="space-y-2">
@@ -189,22 +189,22 @@ export default function PersonTimetable({ persons }: Props) {
                       return (
                         <div
                           key={`${weekday}-${period}`}
-                          className="flex items-start justify-between rounded-lg border border-gray-100 bg-white px-3 py-2"
+                          className="flex items-start justify-between rounded-lg border border-white/5 bg-black/20 px-3 py-2"
                         >
                           <div>
-                            <p className="text-xs font-semibold text-gray-400">
+                            <p className="text-xs font-semibold text-gray-500">
                               P{period} - {times.start}-{times.end}
                             </p>
                             {isFree ? (
-                              <p className="text-sm text-emerald-700 font-medium mt-1">
+                              <p className="text-sm text-emerald-400 font-medium mt-1">
                                 Free
                               </p>
                             ) : (
                               <div className="mt-1">
-                                <p className="text-sm text-gray-800 font-medium">
+                                <p className="text-sm text-gray-200 font-medium">
                                   {detail.subject}
                                 </p>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-gray-400">
                                   {detail.teacher || "No teacher"}
                                 </p>
                               </div>
@@ -213,11 +213,11 @@ export default function PersonTimetable({ persons }: Props) {
 
                           <div className="ml-3">
                             {detail?.room ? (
-                              <span className="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full font-semibold">
+                              <span className="text-[10px] uppercase tracking-wide bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">
                                 {detail.room}
                               </span>
                             ) : (
-                              <span className="text-xs text-gray-400">-</span>
+                              <span className="text-xs text-gray-600">-</span>
                             )}
                           </div>
                         </div>
@@ -230,7 +230,7 @@ export default function PersonTimetable({ persons }: Props) {
           </div>
         ) : (
           <div>
-            <p className="text-xs text-gray-400 mb-2">{dayName}</p>
+            <p className="text-xs text-cyan-500 mb-2 font-medium tracking-widest uppercase">{dayName}</p>
             <div className="space-y-2">
               {Array.from({ length: TOTAL_PERIODS }, (_, i) => i + 1).map(
                 (period) => {
@@ -241,22 +241,22 @@ export default function PersonTimetable({ persons }: Props) {
                   return (
                     <div
                       key={period}
-                      className="flex items-start justify-between rounded-xl border border-gray-100 bg-gray-50 px-3 py-2"
+                      className="flex items-start justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2"
                     >
                       <div>
-                        <p className="text-xs font-semibold text-gray-400">
+                        <p className="text-xs font-semibold text-gray-500">
                           P{period} - {times.start}-{times.end}
                         </p>
                         {isFree ? (
-                          <p className="text-sm text-emerald-700 font-medium mt-1">
+                          <p className="text-sm text-emerald-400 font-medium mt-1">
                             Free
                           </p>
                         ) : (
                           <div className="mt-1">
-                            <p className="text-sm text-gray-800 font-medium">
+                            <p className="text-sm text-gray-200 font-medium">
                               {detail.subject}
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-gray-400">
                               {detail.teacher || "No teacher"}
                             </p>
                           </div>
@@ -265,11 +265,11 @@ export default function PersonTimetable({ persons }: Props) {
 
                       <div className="ml-3">
                         {detail?.room ? (
-                          <span className="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full font-semibold">
+                          <span className="text-[10px] uppercase tracking-wide bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">
                             {detail.room}
                           </span>
                         ) : (
-                          <span className="text-xs text-gray-400">-</span>
+                          <span className="text-xs text-gray-600">-</span>
                         )}
                       </div>
                     </div>
