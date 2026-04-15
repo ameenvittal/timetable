@@ -14,7 +14,7 @@ export default function Header() {
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
         <div>
           <h1 className="text-xl font-bold tracking-tight">
-            Faculty Timetable
+            Festie Team's Timetable
           </h1>
           <p className="mt-0.5 text-xs font-medium uppercase tracking-[0.16em] text-cyan-400/80">
             {today}
