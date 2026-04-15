@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import {
   Clock3,
   CalendarDays,
-  SunMoon,
-  Building2,
   UserRound,
+  CalendarDays as CalendarDaysIcon
 } from "lucide-react";
 import type { PersonSchedule } from "./types";
 import { loadAllPersons } from "./data/index";
@@ -13,10 +12,9 @@ import Header from "./components/Header";
 import CurrentPeriod from "./components/CurrentPeriod";
 import NextPeriod from "./components/NextPeriod";
 import DayView from "./components/DayView";
-import RoomView from "./components/RoomView";
 import PersonTimetable from "./components/PersonTimetable";
 
-type Tab = "now" | "today" | "tomorrow" | "rooms" | "person";
+type Tab = "now" | "day" | "person";
 
 function getInitialTab(): Tab {
   if (typeof window !== "undefined" && window.innerWidth <= 768) {
@@ -29,6 +27,9 @@ export default function App() {
   const [persons, setPersons] = useState<PersonSchedule[]>([]);
   const [tab, setTab] = useState<Tab>(getInitialTab);
 
+  const [dayTabMode, setDayTabMode] = useState<"today" | "tomorrow" | "custom">("today");
+  const [customDate, setCustomDate] = useState("");
+
   useEffect(() => {
     loadAllPersons().then(setPersons);
   }, []);
@@ -36,19 +37,22 @@ export default function App() {
   const today = getTodayName();
   const tomorrow = getTomorrowName();
 
+  let displayDayName = dayTabMode === "today" ? today : tomorrow;
+  if (dayTabMode === "custom" && customDate) {
+    const dt = new Date(customDate);
+    const days: any[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    displayDayName = days[dt.getDay()];
+  }
+
   const tabs: { id: Tab; label: string }[] = [
     { id: "now", label: "Now" },
-    { id: "today", label: "Today" },
-    { id: "tomorrow", label: "Tomorrow" },
-    { id: "rooms", label: "Rooms" },
+    { id: "day", label: "Day" },
     { id: "person", label: "Person" },
   ];
 
   const tabIcons: Record<Tab, React.ReactNode> = {
     now: <Clock3 className="h-4 w-4" />,
-    today: <CalendarDays className="h-4 w-4" />,
-    tomorrow: <SunMoon className="h-4 w-4" />,
-    rooms: <Building2 className="h-4 w-4" />,
+    day: <CalendarDays className="h-4 w-4" />,
     person: <UserRound className="h-4 w-4" />,
   };
 
@@ -97,17 +101,56 @@ export default function App() {
                 <NextPeriod persons={persons} />
               </>
             )}
-            {tab === "today" && (
-              <DayView persons={persons} day={today} label="Today's Schedule" />
+            {tab === "day" && (
+              <div className="space-y-4">
+                <div className="flex flex-wrap gap-1 rounded-full bg-black/40 border border-white/5 p-1 backdrop-blur-md max-w-fit overflow-hidden">
+                  <button
+                    onClick={() => setDayTabMode("today")}
+                    className={`text-sm font-semibold py-1.5 px-4 rounded-full transition-all duration-300 ${
+                      dayTabMode === "today"
+                        ? "bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-white/10"
+                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    Today
+                  </button>
+                  <button
+                    onClick={() => setDayTabMode("tomorrow")}
+                    className={`text-sm font-semibold py-1.5 px-4 rounded-full transition-all duration-300 ${
+                      dayTabMode === "tomorrow"
+                        ? "bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-white/10"
+                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    Tomorrow
+                  </button>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <CalendarDaysIcon className="h-4 w-4 text-cyan-400" />
+                    </div>
+                    <input
+                      type="date"
+                      value={customDate}
+                      onChange={(e) => {
+                        setDayTabMode("custom");
+                        setCustomDate(e.target.value);
+                      }}
+                      className={`h-full pl-9 pr-4 py-1.5 bg-transparent text-sm font-semibold rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-500/50 ${
+                        dayTabMode === "custom"
+                          ? "bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-white/10"
+                          : "text-gray-400 hover:text-white hover:bg-white/5"
+                      }`}
+                      style={{ colorScheme: "dark" }}
+                    />
+                  </div>
+                </div>
+                <DayView
+                  persons={persons}
+                  day={displayDayName}
+                  label={`${displayDayName}'s Schedule`}
+                />
+              </div>
             )}
-            {tab === "tomorrow" && (
-              <DayView
-                persons={persons}
-                day={tomorrow}
-                label="Tomorrow's Schedule"
-              />
-            )}
-            {tab === "rooms" && <RoomView persons={persons} />}
             {tab === "person" && <PersonTimetable persons={persons} />}
           </>
         )}

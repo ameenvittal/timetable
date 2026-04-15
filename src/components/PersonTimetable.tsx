@@ -7,6 +7,8 @@ import {
   TOTAL_PERIODS,
 } from "../utils/scheduleHelpers";
 
+import { CalendarDays as CalendarDaysIcon } from "lucide-react";
+
 interface Props {
   persons: PersonSchedule[];
 }
@@ -27,20 +29,9 @@ type ViewMode = "single-day" | "week";
 
 export default function PersonTimetable({ persons }: Props) {
   const [selectedName, setSelectedName] = useState<string>("");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [dayMode, setDayMode] = useState<DayMode>("today");
+  const [dayMode, setDayMode] = useState<DayMode | "custom">("today");
+  const [customDate, setCustomDate] = useState<string>("");
   const [viewMode, setViewMode] = useState<ViewMode>("single-day");
-
-  const filteredPersons = useMemo(() => {
-    const normalizedQuery = searchQuery.trim().toLowerCase();
-    if (!normalizedQuery) {
-      return persons;
-    }
-
-    return persons.filter((person) =>
-      person.name.toLowerCase().includes(normalizedQuery),
-    );
-  }, [persons, searchQuery]);
 
   useEffect(() => {
     if (persons.length === 0) {
@@ -55,22 +46,27 @@ export default function PersonTimetable({ persons }: Props) {
   }, [persons, selectedName]);
 
   useEffect(() => {
-    if (filteredPersons.length === 0) {
+    if (persons.length === 0) {
       return;
     }
 
-    const exists = filteredPersons.some((p) => p.name === selectedName);
+    const exists = persons.some((p) => p.name === selectedName);
     if (!exists) {
-      setSelectedName(filteredPersons[0].name);
+      setSelectedName(persons[0].name);
     }
-  }, [filteredPersons, selectedName]);
+  }, [persons, selectedName]);
 
   const selectedPerson = useMemo(
     () => persons.find((p) => p.name === selectedName) || null,
     [persons, selectedName],
   );
 
-  const dayName = dayMode === "today" ? getTodayName() : getTomorrowName();
+  let dayName = dayMode === "today" ? getTodayName() : getTomorrowName();
+  if (dayMode === "custom" && customDate) {
+    const dt = new Date(customDate);
+    const days: any[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    dayName = days[dt.getDay()];
+  }
 
   return (
     <div className="rounded-3xl shadow-2xl border border-white/10 bg-[#0B1121]/80 backdrop-blur-md p-4 space-y-4">
@@ -78,18 +74,6 @@ export default function PersonTimetable({ persons }: Props) {
         <h2 className="text-sm font-semibold text-cyan-400 uppercase tracking-wide mb-2">
           Personal Timetable
         </h2>
-
-        <label htmlFor="person-search" className="text-xs text-gray-400">
-          Search Person
-        </label>
-        <input
-          id="person-search"
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Type a name..."
-          className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all"
-        />
 
         <label
           htmlFor="person-select"
@@ -103,37 +87,37 @@ export default function PersonTimetable({ persons }: Props) {
           onChange={(e) => setSelectedName(e.target.value)}
           className="mt-1 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all"
         >
-          {filteredPersons.map((person) => (
+          {persons.map((person) => (
             <option key={person.name} value={person.name} className="bg-[#0B1121]">
               {person.name}
             </option>
           ))}
         </select>
-        {filteredPersons.length === 0 && (
+        {persons.length === 0 && (
           <p className="mt-2 text-xs text-rose-400">
-            No person matches your search.
+            No persons loaded.
           </p>
         )}
       </div>
 
       <div className="space-y-2">
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-1 p-1 bg-black/40 border border-white/5 rounded-full max-w-fit">
           <button
             onClick={() => setViewMode("single-day")}
-            className={`flex-1 text-sm font-medium py-2 rounded-lg transition-all duration-300 ${
+            className={`text-sm font-semibold py-1.5 px-4 rounded-full transition-all duration-300 ${
               viewMode === "single-day"
                 ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]"
-                : "bg-white/5 text-gray-400 hover:bg-white/10"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
             }`}
           >
             Day View
           </button>
           <button
             onClick={() => setViewMode("week")}
-            className={`flex-1 text-sm font-medium py-2 rounded-lg transition-all duration-300 ${
+            className={`text-sm font-semibold py-1.5 px-4 rounded-full transition-all duration-300 ${
               viewMode === "week"
                 ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.2)]"
-                : "bg-white/5 text-gray-400 hover:bg-white/10"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
             }`}
           >
             Week View
@@ -141,27 +125,46 @@ export default function PersonTimetable({ persons }: Props) {
         </div>
 
         {viewMode === "single-day" && (
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-1 p-1 bg-black/20 border border-white/5 rounded-full max-w-fit">
             <button
               onClick={() => setDayMode("today")}
-              className={`flex-1 text-sm font-medium py-2 rounded-lg transition-all duration-300 ${
+              className={`min-w-[80px] text-sm font-semibold py-1.5 px-3 rounded-full transition-all duration-300 ${
                 dayMode === "today"
-                  ? "bg-white/15 text-white border border-white/20"
-                  : "bg-white/5 text-gray-400 hover:bg-white/10"
+                  ? "bg-white/10 text-white shadow-sm border border-white/10"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
             >
               Today
             </button>
             <button
               onClick={() => setDayMode("tomorrow")}
-              className={`flex-1 text-sm font-medium py-2 rounded-lg transition-all duration-300 ${
+              className={`min-w-[80px] text-sm font-semibold py-1.5 px-3 rounded-full transition-all duration-300 ${
                 dayMode === "tomorrow"
-                  ? "bg-white/15 text-white border border-white/20"
-                  : "bg-white/5 text-gray-400 hover:bg-white/10"
+                  ? "bg-white/10 text-white shadow-sm border border-white/10"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
             >
               Tomorrow
             </button>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <CalendarDaysIcon className="h-4 w-4 text-cyan-400" />
+              </div>
+              <input
+                type="date"
+                value={customDate}
+                onChange={(e) => {
+                  setDayMode("custom");
+                  setCustomDate(e.target.value);
+                }}
+                className={`w-full h-full pl-9 pr-4 py-1.5 bg-transparent text-sm font-semibold rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-500/50 ${
+                  dayMode === "custom"
+                    ? "bg-white/10 text-white shadow-sm border border-white/10"
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                }`}
+                style={{ colorScheme: "dark" }}
+              />
+            </div>
           </div>
         )}
       </div>
