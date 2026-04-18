@@ -31,7 +31,15 @@ export default function App() {
   const [customDate, setCustomDate] = useState("");
 
   useEffect(() => {
-    loadAllPersons().then(setPersons);
+    loadAllPersons().then((allPersons) => {
+      if (window.location.pathname === '/chanchusa') {
+        const allowed = ["Ameen", "Shamsheer"];
+        setPersons(allPersons.filter(p => allowed.includes(p.name)));
+      } else {
+         const notAllowed = ["Shamsheer"];
+         setPersons(allPersons.filter(p => !notAllowed.includes(p.name)));
+      }
+    });
   }, []);
 
   const today = getTodayName();
