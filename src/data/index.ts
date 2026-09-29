@@ -10,6 +10,7 @@ import nabhanCSV from "./persons/nabhan.csv?raw";
 import rabeeCSV from "./persons/rabee.csv?raw";
 import salmanCSV from "./persons/salman.csv?raw";
 import siyasCSV from "./persons/siyas.csv?raw";
+import galibCSV from "./persons/galib.csv?raw";
 
 import { parsePersonCSV } from "../utils/csvParser";
 import type { PersonSchedule } from "../types";
@@ -25,6 +26,7 @@ const rawFiles: { name: string; csv: string }[] = [
   { name: "Rabee", csv: rabeeCSV },
   { name: "Salman", csv: salmanCSV },
   { name: "Siyas", csv: siyasCSV },
+  {name: "Galib", csv: galibCSV}
 ];
 
 export async function loadAllPersons(): Promise<PersonSchedule[]> {
