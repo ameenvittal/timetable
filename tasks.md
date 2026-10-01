@@ -1,6 +1,6 @@
 # Team Tasks, Planning & Scheduling
 
-This document details all prioritized tasks, estimates, dependencies, scope items, and merged milestone deadlines for the team. All tasks are structured as **Works in: [Area / Feature]** with their respective scope items.
+This document details all prioritized tasks, estimates, dependencies, scope items, and merged milestone deadlines for the team. All tasks are structured as **Works in: [Area / Feature]** with their respective scope items, arranged in exact priority order.
 
 ## Overview & Roles
 - **Salim (Ameen)**: Planning, architecture, thinking & backend logic.
@@ -69,34 +69,34 @@ Salman designs the interfaces that developers will implement.
 
 | # | Task | Size | Est. Time | Depends On | Scope Items |
 |---|------|------|-----------|------------|-------------|
-| 1 | **Works in: Team Programme Auto-Selection** | Small | 2.5 hrs | None | • Auto select programmes to make a team first |
-| 2 | **Works in: Charts & Data State** | Small | 2 hrs | None | • Show no enough data to show charts |
-| 3 | **Works in: Chest Number Auto-Generation** | Small | 2.5 hrs | None | • Chest No auto generation |
+| 1 | **Works in: Chest Number Auto-Generation** | Small | 2.5 hrs | None | • Chest No Auto generation |
+| 2 | **Works in: Team Programme Auto-Selection** | Small | 2.5 hrs | None | • Auto select programmes to make a team first |
+| 3 | **Works in: Charts & Data State** | Small | 2 hrs | None | • Show no enough data to show charts |
 | 4 | **Works in: Templates Engine & Certificates** | Big | 2 days | None | • Template generation first<br>• Public certificate download option<br>• Height and width linking<br>• After x results variable add |
 
 ### Nabhan's Merged Milestone Deadlines
-- **Batch 1 (Tasks 1–3)**: *Auto Select Team Programmes*, *Charts Empty State*, *Chest No Auto Generation*  
+- **Batch 1 (Tasks 1–3)**: *Chest Number Auto-Generation*, *Auto Select Team Programmes*, *Charts Empty State*  
   🎯 **Deadline**: Friday, Oct 2, 2026, 9:00 PM
 - **Batch 2 (Task 4)**: *Templates Engine & Certificates*  
   🎯 **Deadline**: Sunday, Oct 4, 2026, 11:00 PM
 
 ---
 
-## 4. Hashir — Topper, Schedule & Reports
+## 4. Hashir — Media, Reports, Topper & Schedule
 
 | # | Task | Size | Est. Time | Depends On | Scope Items |
 |---|------|------|-----------|------------|-------------|
-| 1 | **Works in: News & Downloads Cards** | Very Small | 15 mins | None | • Make default cards for news, downloads |
+| 1 | **Works in: News & Downloads Cards** | Very Small | 15 mins | None | • News, downloads (make default cards) |
 | 2 | **Works in: Downloads & Media Library Migration** | Small | 2.5 hrs | None | • Move downloads etc to the website section<br>• Moving Move files to media library |
-| 3 | **Works in: Topper Placeholder Design Edit** | Small | 2.5 hrs | Salim (Toppers Redesign) | • Topper placeholder design edit<br>• When limit change need to refresh |
-| 4 | **Works in: Schedule (to Code)** | Big | 2 days | Salim (Schedule Rethink) & Salman (Schedule Design) | • Add to google calendar<br>• Talks, Session, than programmes<br>• Phase based<br>• Candidate count * Participation count |
-| 5 | **Works in: Reports Engine** | Medium | 1 day | None | • Model change. Tick option change<br>• In candidate report: also to come the candidate who have no points |
+| 3 | **Works in: Reports Engine** | Medium | 1 day | None | • Model change. Tick option change<br>• In candidate report: also to come the candidate who have no points |
+| 4 | **Works in: Topper Placeholder Design Edit** | Small | 2.5 hrs | Salim (Toppers Redesign) | • Topper placeholder design edit<br>• When limit change need to refresh |
+| 5 | **Works in: Schedule (to Code)** | Big | 2 days | Salim (Schedule Rethink) & Salman (Schedule Design) | • Add to google calendar<br>• Talks, Session, than programmes<br>• Phase based<br>• Candidate count * Participation count |
 
 ### Hashir's Merged Milestone Deadlines
-- **Batch 1 (Tasks 1–3)**: *News/Downloads Cards*, *Media Library Migration*, *Topper Placeholder Design Edit*  
-  🎯 **Deadline**: Sunday, Oct 4, 2026, 2:20 PM (Wait for Salim Batch 1)
-- **Batch 2 (Tasks 4–5)**: *Schedule to Code*, *Reports Engine*  
-  🎯 **Deadline**: Wednesday, Oct 7, 2026, 11:00 PM
+- **Batch 1 (Tasks 1–3)**: *News/Downloads Cards*, *Media Library Migration*, *Reports Engine*  
+  🎯 **Deadline**: Friday, Oct 2, 2026, 11:00 PM
+- **Batch 2 (Tasks 4–5)**: *Topper Placeholder Design Edit*, *Schedule to Code*  
+  🎯 **Deadline**: Tuesday, Oct 6, 2026, 11:00 PM (Wait for Salim & Salman)
 
 ---
 
@@ -104,24 +104,24 @@ Salman designs the interfaces that developers will implement.
 
 | # | Task | Size | Est. Time | Depends On | Scope Items |
 |---|------|------|-----------|------------|-------------|
-| 1 | **Works in: Candidate Cleared Input Save Bug** | Very Small | 15 mins | None | • Edit candidate cleared input not saved |
-| 2 | **Works in: Registrations Programme Sort** | Very Small | 15 mins | None | • Registrations program sort based on program not sorted |
-| 3 | **Works in: Programme Category Filter** | Very Small | 15 mins | None | • Program’s category filtered (it’s base category only) |
-| 4 | **Works in: Appeals Requester Metadata** | Very Small | 15 mins | None | • Appeals: add who requested it also |
-| 5 | **Works in: Assign Avatar Removal** | Very Small | 15 mins | None | • Assign avatar page remove option |
-| 6 | **Works in: Festivals Page 3-Dot Removal** | Very Small | 15 mins | None | • Remove 3 dot from festivals page |
-| 7 | **Works in: Results Page Action Menu Cleanup** | Very Small | 15 mins | None | • Remove result in results page: move to more 3 dot |
-| 8 | **Works in: Registration UI Simplification** | Small | 2.5 hrs | None | • Registration ui simplification |
-| 9 | **Works in: Classification & Collection Terminology** | Small | 2.5 hrs | None | • Key in section and collection change term: classification<br>• Change adding layout. And change term. (Classifications and items) |
-| 10 | **Works in: Topic Registration Layout** | Small | 2.5 hrs | Salman (Topic Registration Page) | • Topic registration layout (After Salman design it) |
+| 1 | **Works in: Registration UI Simplification** | Small | 2.5 hrs | None | • Registration ui simplification |
+| 2 | **Works in: Candidate Cleared Input Save Bug** | Very Small | 15 mins | None | • Edit candidate cleared input not saved |
+| 3 | **Works in: Registrations Programme Sort** | Very Small | 15 mins | None | • Registrations program sort based on program not sorted |
+| 4 | **Works in: Topic Registration Layout** | Small | 2.5 hrs | Salman (Topic Registration Page) | • Topic registration layout (After Salman design it) |
+| 5 | **Works in: Programme Category Filter** | Very Small | 15 mins | None | • Program’s category filtered (it’s base category only) |
+| 6 | **Works in: Classification & Collection Terminology** | Small | 2.5 hrs | None | • Key in section and collection change term: classification<br>• Change adding layout. And change term. (Classifications and items) |
+| 7 | **Works in: Appeals Requester Metadata** | Very Small | 15 mins | None | • Appeals: add who requested it also |
+| 8 | **Works in: Assign Avatar Removal** | Very Small | 15 mins | None | • Assign avatar page remove option |
+| 9 | **Works in: Festivals Page 3-Dot Removal** | Very Small | 15 mins | None | • Remove 3 dot from festivals page |
+| 10 | **Works in: Results Page Action Menu Cleanup** | Very Small | 15 mins | None | • Remove result in results page: move to more 3 dot |
 
 ### Munavar's Merged Milestone Deadlines
-- **Batch 1 (Tasks 1–4)**: *Quick Bug Fixes (Cleared Input, Sort, Category Filter, Appeals Author)*  
-  🎯 **Deadline**: Thursday, Oct 1, 2026, 1:15 PM
-- **Batch 2 (Tasks 5–7)**: *UI Polish (Avatar Remove, 3-dot cleanup on festivals & results)*  
-  🎯 **Deadline**: Thursday, Oct 1, 2026, 5:00 PM
-- **Batch 3 (Tasks 8–10)**: *Registration UI Simplification*, *Classification Term Change*, *Topic Registration Layout*  
-  🎯 **Deadline**: Saturday, Oct 3, 2026, 9:00 PM
+- **Batch 1 (Tasks 1–3)**: *Registration UI Simplification*, *Candidate Cleared Input Bug*, *Registrations Programme Sort*  
+  🎯 **Deadline**: Thursday, Oct 1, 2026, 9:00 PM
+- **Batch 2 (Tasks 4–6)**: *Topic Registration Layout*, *Programme Category Filter*, *Classification & Collection Terminology*  
+  🎯 **Deadline**: Friday, Oct 2, 2026, 9:00 PM
+- **Batch 3 (Tasks 7–10)**: *Appeals Author*, *Avatar Removal*, *Festivals 3-Dot Cleanup*, *Results Action Menu Cleanup*  
+  🎯 **Deadline**: Saturday, Oct 3, 2026, 5:00 PM
 
 ---
 
@@ -135,7 +135,7 @@ Salman designs the interfaces that developers will implement.
 | 4 | **Works in: Score Setting Auto-Regeneration** | Small | 2.5 hrs | None | • Make sure score setting change regenerates automatically |
 | 5 | **Works in: Result Regeneration Pipeline** | Small | 2.5 hrs | None | • Regenerate result (already generated again bulk and normal) |
 | 6 | **Works in: Subscription & Freemium Models** | Very Big | 4 days | None | • Subscription & Freemium Models |
-| 7 | **Works in: Screen Engine** | Very Big | 4 days | Salman (Screen Design) | • screens |
+| 7 | **Works in: Screens Engine** | Very Big | 4 days | Salman (Screen Design) | • screens |
 
 ### Hisham's Merged Milestone Deadlines
 - **Batch 1 (Tasks 1–3)**: *Forgot Password*, *Public Result 404 Fix*, *Mobile Navigation*  
@@ -149,25 +149,25 @@ Salman designs the interfaces that developers will implement.
 
 ---
 
-## 7. Majid — Integrations, Infrastructure & Public Systems
+## 7. Majid — WhatsApp, API, Cron & Public Security
 
 | # | Task | Size | Est. Time | Depends On | Scope Items |
 |---|------|------|-----------|------------|-------------|
-| 1 | **Works in: Public Page Result Layout Left Panel** | Very Small | 15 mins | None | • Public page result layout left panel stuck |
-| 2 | **Works in: Activity Log & Deleted At Fixes** | Medium | 1 day | None | • Activity Log and deleted at fixes |
-| 3 | **Works in: Cron Jobs (Templates & Activity Log)** | Medium | 1 day | None | • Cron Jobs in Templates, activity log |
-| 4 | **Works in: Web Push Notifications** | Medium | 1 day | None | • Web push notification |
-| 5 | **Works in: Topper Placeholder Leaderboard Connection** | Medium | 1 day | Salim (Toppers Redesign) & Hashir (Topper Edit) | • Topper placeholder leaderboard connection |
-| 6 | **Works in: API Isolation** | Big | 2 days | None | • Published results only to come<br>• Notifications should go to the student also |
+| 1 | **Works in: WhatsApp Integration** | Very Big | 4 days | None | • WhatsApp Integration |
+| 2 | **Works in: API Isolation** | Big | 2 days | None | • Published results only to come<br>• Notifications should go to the student also |
+| 3 | **Works in: Activity Log & Deleted At Fixes** | Medium | 1 day | None | • Activity Log and deleted at fixes |
+| 4 | **Works in: Cron Jobs (Templates & Activity Log)** | Medium | 1 day | None | • Cron Jobs in Templates, activity log |
+| 5 | **Works in: Web Push Notifications** | Medium | 1 day | None | • Web push notification |
+| 6 | **Works in: Public Page Result Layout Left Panel** | Very Small | 15 mins | None | • Public page result layout left panel stuck |
 | 7 | **Works in: Public Page Login System** | Big | 2 days | None | • Public page Login system |
-| 8 | **Works in: WhatsApp Integration** | Very Big | 4 days | None | • WhatsApp Integration |
+| 8 | **Works in: Topper Placeholder Leaderboard Connection** | Medium | 1 day | Salim (Toppers Redesign) & Hashir (Topper Edit) | • Topper placeholder leaderboard connection |
 
 ### Majid's Merged Milestone Deadlines
-- **Batch 1 (Tasks 1–3)**: *Left Panel Fix*, *Activity Log & Soft Deletes*, *Cron Jobs Engine*  
-  🎯 **Deadline**: Saturday, Oct 3, 2026, 11:00 PM
-- **Batch 2 (Tasks 4–5)**: *Web Push Notification*, *Topper Leaderboard Connection*  
-  🎯 **Deadline**: Monday, Oct 5, 2026, 11:00 PM
-- **Batch 3 (Tasks 6–7)**: *API Isolation*, *Public Page Login System*  
+- **Batch 1 (Task 1)**: *WhatsApp Integration*  
+  🎯 **Deadline**: Sunday, Oct 4, 2026, 11:00 PM
+- **Batch 2 (Tasks 2–3)**: *API Isolation*, *Activity Log & Deleted At Fixes*  
+  🎯 **Deadline**: Wednesday, Oct 7, 2026, 11:00 PM
+- **Batch 3 (Tasks 4–6)**: *Cron Jobs*, *Web Push Notifications*, *Public Page Left Panel Fix*  
   🎯 **Deadline**: Friday, Oct 9, 2026, 11:00 PM
-- **Batch 4 (Task 8)**: *WhatsApp Integration*  
-  🎯 **Deadline**: Tuesday, Oct 13, 2026, 11:00 PM
+- **Batch 4 (Tasks 7–8)**: *Public Page Login System*, *Topper Placeholder Leaderboard Connection*  
+  🎯 **Deadline**: Monday, Oct 12, 2026, 11:00 PM
