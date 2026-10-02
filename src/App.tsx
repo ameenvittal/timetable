@@ -20,14 +20,32 @@ import TasksDashboard from "./components/Tasks/TasksDashboard";
 type Tab = "now" | "day" | "person";
 
 function getInitialTab(): Tab {
-  if (typeof window !== "undefined" && window.innerWidth <= 768) {
-    return "person";
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get("tab");
+    if (tabParam === "now" || tabParam === "day" || tabParam === "person") {
+      return tabParam;
+    }
+    if (params.has("person") || params.has("view")) {
+      return "person";
+    }
+    if (window.innerWidth <= 768) {
+      return "person";
+    }
   }
   return "now";
 }
 
 function getInitialAppMode(): AppMode {
   if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    const modeParam = params.get("mode");
+    if (modeParam === "tasks" || modeParam === "timetable") {
+      return modeParam;
+    }
+    if (params.get("tab") || params.has("person") || params.has("view")) {
+      return "timetable";
+    }
     const saved = localStorage.getItem("timetable_app_mode");
     if (saved === "timetable" || saved === "tasks") {
       return saved;
@@ -52,12 +70,50 @@ export default function App() {
 
   const handleSelectMode = (mode: AppMode) => {
     setAppMode(mode);
-    if (mode === "tasks" || mode === "timetable") {
+    const params = new URLSearchParams(window.location.search);
+    if (mode === "tasks") {
+      params.set("mode", "tasks");
+      localStorage.setItem("timetable_app_mode", mode);
+    } else if (mode === "timetable") {
+      params.set("mode", "timetable");
       localStorage.setItem("timetable_app_mode", mode);
     } else {
+      params.delete("mode");
+      params.delete("tab");
+      params.delete("person");
+      params.delete("view");
+      params.delete("day");
+      params.delete("date");
       localStorage.removeItem("timetable_app_mode");
     }
+    const search = params.toString();
+    const newUrl = search ? `${window.location.pathname}?${search}` : window.location.pathname;
+    window.history.replaceState(null, "", newUrl);
   };
+
+  const handleTabChange = (newTab: Tab) => {
+    setTab(newTab);
+    const params = new URLSearchParams(window.location.search);
+    params.set("tab", newTab);
+    if (newTab !== "person") {
+      params.delete("person");
+      params.delete("view");
+      params.delete("day");
+      params.delete("date");
+    }
+    const search = params.toString();
+    const newUrl = search ? `${window.location.pathname}?${search}` : window.location.pathname;
+    window.history.replaceState(null, "", newUrl);
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setAppMode(getInitialAppMode());
+      setTab(getInitialTab());
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const today = getTodayName();
   const tomorrow = getTomorrowName();
@@ -120,7 +176,7 @@ export default function App() {
               {tabs.map((t) => (
                 <button
                   key={t.id}
-                  onClick={() => setTab(t.id)}
+                  onClick={() => handleTabChange(t.id)}
                   className={`flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-300 min-w-max cursor-pointer ${
                     tab === t.id
                       ? "bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.05)] border border-white/10"

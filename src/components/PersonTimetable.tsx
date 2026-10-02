@@ -27,34 +27,93 @@ const WEEK_DAYS = [
 
 type ViewMode = "single-day" | "week";
 
+function getInitialPersonState() {
+  if (typeof window === "undefined") {
+    return {
+      person: "",
+      viewMode: "single-day" as ViewMode,
+      dayMode: "today" as DayMode | "custom",
+      customDate: "",
+    };
+  }
+  const params = new URLSearchParams(window.location.search);
+  const person = params.get("person") || "";
+  const view = params.get("view");
+  const viewMode: ViewMode = view === "week" ? "week" : "single-day";
+  const day = params.get("day");
+  const date = params.get("date") || "";
+
+  let dayMode: DayMode | "custom" = "today";
+  if (day === "tomorrow") {
+    dayMode = "tomorrow";
+  } else if (day === "custom" || date) {
+    dayMode = "custom";
+  }
+
+  return { person, viewMode, dayMode, customDate: date };
+}
+
 export default function PersonTimetable({ persons }: Props) {
-  const [selectedName, setSelectedName] = useState<string>("");
-  const [dayMode, setDayMode] = useState<DayMode | "custom">("today");
-  const [customDate, setCustomDate] = useState<string>("");
-  const [viewMode, setViewMode] = useState<ViewMode>("single-day");
+  const initial = useMemo(getInitialPersonState, []);
+  const [selectedName, setSelectedName] = useState<string>(initial.person);
+  const [dayMode, setDayMode] = useState<DayMode | "custom">(initial.dayMode);
+  const [customDate, setCustomDate] = useState<string>(initial.customDate);
+  const [viewMode, setViewMode] = useState<ViewMode>(initial.viewMode);
 
+  // Sync with available persons on load
   useEffect(() => {
-    if (persons.length === 0) {
-      setSelectedName("");
-      return;
-    }
-
-    const exists = persons.some((p) => p.name === selectedName);
-    if (!exists) {
+    if (persons.length === 0) return;
+    const target = selectedName || initial.person;
+    const matched = persons.find(
+      (p) => p.name.toLowerCase() === target.toLowerCase(),
+    );
+    if (matched) {
+      if (matched.name !== selectedName) {
+        setSelectedName(matched.name);
+      }
+    } else if (!selectedName) {
       setSelectedName(persons[0].name);
     }
-  }, [persons, selectedName]);
+  }, [persons, selectedName, initial.person]);
 
+  // Sync state changes to URL
   useEffect(() => {
-    if (persons.length === 0) {
-      return;
+    if (!selectedName) return;
+
+    const params = new URLSearchParams(window.location.search);
+    params.set("tab", "person");
+    params.set("person", selectedName);
+    params.set("view", viewMode);
+
+    if (viewMode === "single-day") {
+      params.set("day", dayMode);
+      if (dayMode === "custom" && customDate) {
+        params.set("date", customDate);
+      } else {
+        params.delete("date");
+      }
+    } else {
+      params.delete("day");
+      params.delete("date");
     }
 
-    const exists = persons.some((p) => p.name === selectedName);
-    if (!exists) {
-      setSelectedName(persons[0].name);
-    }
-  }, [persons, selectedName]);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", newUrl);
+  }, [selectedName, viewMode, dayMode, customDate]);
+
+  // Support browser Back and Forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const state = getInitialPersonState();
+      if (state.person) setSelectedName(state.person);
+      setViewMode(state.viewMode);
+      setDayMode(state.dayMode);
+      setCustomDate(state.customDate);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const selectedPerson = useMemo(
     () => persons.find((p) => p.name === selectedName) || null,
